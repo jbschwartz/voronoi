@@ -8,6 +8,6 @@ export default class Circle {
   }
 
   contains(point) {
-    
+    return distance(point, new Point(this.cx, this.cy)) <= this.r;
   }
 }
