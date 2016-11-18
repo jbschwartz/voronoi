@@ -10,5 +10,4 @@ it('calculates distance correctly', () => {
   expect(distance(p1, p2)).toBe(2);
   expect(distance(p3, p1)).toBe(Math.sqrt(2));
   expect(distance(p1, p3)).toBe(Math.sqrt(2));
-
 });
