@@ -24,7 +24,7 @@ it('returns a list of edges', () => {
   const result = triangle.edges;
 
   // TODO: Does order matter?
-  expect(result.includes([p1, p2])).toBeTrue;
-  expect(result.includes([p2, p3])).toBeTrue;
-  expect(result.includes([p3, p1])).toBeTrue;
+  expect(result.includes([p1, p2])).toBeTruthy();
+  expect(result.includes([p2, p3])).toBeTruthy();
+  expect(result.includes([p3, p1])).toBeTruthy();
 });
