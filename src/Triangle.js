@@ -6,6 +6,10 @@ class Triangle {
     this.p2 = p2;
     this.p3 = p3;
   }
+
+  get edges() {
+    return [[this.p1, this.p2], [this.p2, this.p3], [this.p3, this.p1]];
+  }
 }
 
 function circumscribedCircle(triangle) {
