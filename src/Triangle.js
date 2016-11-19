@@ -16,14 +16,14 @@ class Triangle {
   }
 }
 
-function circumscribedCircle(triangle) {
-  const x1 = triangle.p1.x;
-  const x2 = triangle.p2.x;
-  const x3 = triangle.p3.x;
+function circumscribedCircle(points) {
+  const x1 = points[0].x;
+  const x2 = points[1].x;
+  const x3 = points[2].x;
 
-  const y1 = triangle.p1.y;
-  const y2 = triangle.p2.y;
-  const y3 = triangle.p3.y;
+  const y1 = points[0].y;
+  const y2 = points[1].y;
+  const y3 = points[2].y;
 
   var ma = (y2 - y1) / (x2 - x1);
   var mb = (y3 - y2) / (x3 - x2);
