@@ -1,14 +1,18 @@
 import Circle from './Circle'
 
 class Triangle {
-  constructor(p1, p2, p3) {
-    this.p1 = p1;
-    this.p2 = p2;
-    this.p3 = p3;
+  constructor(i, j, k) {
+    this.i = i;
+    this.j = j;
+    this.k = k;
   }
 
   get edges() {
-    return [[this.p1, this.p2], [this.p2, this.p3], [this.p3, this.p1]];
+    return [
+      [this.i, this.j],
+      [this.j, this.k],
+      [this.k, this.i]
+    ];
   }
 }
 
