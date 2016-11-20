@@ -39,13 +39,16 @@ describe('Triangle', () => {
 
       for(let orientation in points) {
         const p = points[orientation];
+        const expected = expecteds[orientation];
+
         it(orientation + ' points first', () => {
-          const triangle = new Triangle(p[0], p[1], p[2]);
-          expect(Object.is(triangle.circumCircle, expecteds[orientation])).toBeTruthy();
+          const actual = (new Triangle(p[0], p[1], p[2])).circumCircle;
+          expectEqualCircles(actual, expected);
         });
+
         it(orientation + ' points second', () => {
-          const triangle = new Triangle(p[2], p[0], p[1]);
-          expect(Object.is(triangle.circumCircle, expecteds[orientation])).toBeTruthy();
+          const actual = (new Triangle(p[2], p[0], p[1])).circumCircle;
+          expectEqualCircles(actual, expected);
         });
       }
 
