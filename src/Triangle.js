@@ -45,4 +45,4 @@ function circumscribedCircle(points) {
   return new Circle(cx, cy, r);
 }
 
-export { Triangle, circumscribedCircle }
+export { Triangle }
