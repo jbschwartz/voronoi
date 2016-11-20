@@ -1,5 +1,5 @@
-import Edge from './Edge';
-import {Point} from './Point'
+import Edge from '../Edge';
+import {Point} from '../Point'
 
 describe('Edge', () => {
   const start = new Point(0, 0);

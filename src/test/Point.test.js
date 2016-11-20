@@ -1,4 +1,4 @@
-import {Point, distance} from './Point';
+import {Point, distance} from '../Point';
 
 it('calculates distance correctly', () => {
   const p1 = new Point(0, 0);

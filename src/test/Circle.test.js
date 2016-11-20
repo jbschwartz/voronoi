@@ -1,5 +1,5 @@
-import Circle from './Circle';
-import {Point} from './Point';
+import Circle from '../Circle';
+import {Point} from '../Point';
 
 describe('Circle', () => {
   const p1 = new Point(-3, 0);
