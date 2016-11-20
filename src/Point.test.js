@@ -1,4 +1,3 @@
-import React from 'react';
 import {Point, distance} from './Point';
 
 it('calculates distance correctly', () => {

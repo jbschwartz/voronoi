@@ -1,4 +1,3 @@
-import React from 'react';
 import {Point} from './Point';
 import {Triangle, circumscribedCircle} from './Triangle';
 
