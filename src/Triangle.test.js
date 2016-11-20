@@ -18,6 +18,32 @@ describe('Triangle', () => {
       expect(circumCircle.r).toBe(1);
     });
 
+    describe('handles edge cases', () => {
+      const points = {
+        vertical: [new Point(1, 1), new Point(1, 2), new Point(1.86602540, 2.5)],
+        horizontal: [new Point(1, 1), new Point(2, 1), new Point(2.5, 0.13397460)],
+        both: [new Point(1, 1), new Point(1, 2), new Point(2.73205081, 2)]
+      }
+
+      const expecteds = {
+        vertical: new Circle(1.86602540, 1.5, 2),
+        horizontal: new Circle(1.5, 0.13397460, 1.5, 2),
+        both: new Circle(1.86602540, 1.5, 2)
+      }
+
+      for(let orientation in points) {
+        const p = points[orientation];
+        it(orientation + ' points first', () => {
+          const triangle = new Triangle(p[0], p[1], p[2]);
+          expect(Object.is(triangle.circumCircle, expecteds[orientation])).toBeTruthy();
+        });
+        it(orientation + ' points second', () => {
+          const triangle = new Triangle(p[2], p[0], p[1]);
+          expect(Object.is(triangle.circumCircle, expecteds[orientation])).toBeTruthy();
+        });
+      }
+    });
+
     it('handles degenerate triangles', () => {
       let points = {
         vertical: [new Point(1, 1), new Point(1, 2), new Point(1, 3)],
