@@ -22,4 +22,8 @@ describe('Triangle', () => {
       expect(edge instanceof Edge).toBeTruthy();
     }
   });
+
+  it('stores a copy of the circumCircle', () => {
+    expect(triangle.circumCircle).toBeDefined();
+  })
 })
