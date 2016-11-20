@@ -8,6 +8,8 @@ class Triangle {
     this.c = c;
 
     this.buildEdges();
+
+    this.circumCircle = circumscribedCircle([this.a, this.b, this.c]);
   }
 
   buildEdges() {
