@@ -33,6 +33,10 @@ function circumscribedCircle(points) {
   var ma = (y2 - y1) / (x2 - x1);
   var mb = (y3 - y2) / (x3 - x2);
 
+  if(ma == mb) {
+    return new Circle(NaN, NaN, NaN);
+  }
+
   var cx = (ma*mb*(y1-y3) + mb*(x1+x2) - ma*(x2+x3)) / (2 * (mb-ma));
   if(ma != 0) {
     var cy = -(1/ma)*(cx - (x1+x2)/2) + (y1+y2)/2
