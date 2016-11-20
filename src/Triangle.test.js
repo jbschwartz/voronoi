@@ -3,6 +3,12 @@ import Edge from './Edge';
 import Circle from './Circle';
 import {Triangle} from './Triangle';
 
+function expectEqualCircles(a, b) {
+  expect(a.cx).toBeCloseTo(b.cx, 8);
+  expect(a.cy).toBeCloseTo(b.cy, 8);
+  expect(a.r).toBeCloseTo(b.r, 8);
+}
+
 describe('Triangle', () => {
   const p1 = new Point(-1, 0);
   const p2 = new Point(1, 0);
