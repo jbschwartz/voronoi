@@ -42,22 +42,22 @@ describe('Triangle', () => {
           expect(Object.is(triangle.circumCircle, expecteds[orientation])).toBeTruthy();
         });
       }
-    });
 
-    it('handles degenerate triangles', () => {
-      let points = {
-        vertical: [new Point(1, 1), new Point(1, 2), new Point(1, 3)],
-        horizontal: [new Point(1, 1), new Point(2, 1), new Point(3, 1)],
-        angle: [new Point(1, 1), new Point(2, 2), new Point(3, 3)]
-      }
+      it('degenerate triangles', () => {
+        let points = {
+          vertical: [new Point(1, 1), new Point(1, 2), new Point(1, 3)],
+          horizontal: [new Point(1, 1), new Point(2, 1), new Point(3, 1)],
+          angle: [new Point(1, 1), new Point(2, 2), new Point(3, 3)]
+        }
 
-      for(let orientation in points) {
-        const p = points[orientation];
-        const degenerate = new Triangle(p[0], p[1], p[2]);
-        expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
-        expect(isNaN(degenerate.circumCircle.cy)).toBeTruthy();
-        expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
-      }
+        for(let orientation in points) {
+          const p = points[orientation];
+          const degenerate = new Triangle(p[0], p[1], p[2]);
+          expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
+          expect(isNaN(degenerate.circumCircle.cy)).toBeTruthy();
+          expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
+        }
+      });
     });
 
     it('is a Circle', () => {
