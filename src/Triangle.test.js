@@ -1,12 +1,14 @@
 import {Point} from './Point';
+import Edge from './Edge';
 import {Triangle, circumscribedCircle} from './Triangle';
 
 describe('Triangle', () => {
-  it('calculates circumscribed circle correctly', () => {
-    const p1 = new Point(-1, 0);
-    const p2 = new Point(1, 0);
-    const p3 = new Point(0, 1);
+  const p1 = new Point(-1, 0);
+  const p2 = new Point(1, 0);
+  const p3 = new Point(0, 1);
+  const triangle = new Triangle(p1, p2, p3);
 
+  it('calculates circumscribed circle correctly', () => {
     const result = circumscribedCircle([p1, p2, p3])
 
     expect(result.cx).toBe(0);
@@ -14,17 +16,10 @@ describe('Triangle', () => {
     expect(result.r).toBe(1);
   });
 
-  it('returns a list of edges', () => {
-    const triangle = new Triangle(0, 1, 2);
+  it('returns a list of Edges', () => {
     const edges = triangle.edges;
-
-    expect(edges[0].includes(0)).toBeTruthy();
-    expect(edges[0].includes(1)).toBeTruthy();
-
-    expect(edges[1].includes(1)).toBeTruthy();
-    expect(edges[1].includes(2)).toBeTruthy();
-
-    expect(edges[2].includes(2)).toBeTruthy();
-    expect(edges[2].includes(0)).toBeTruthy();
+    for(let edge of edges) {
+      expect(edge instanceof Edge).toBeTruthy();
+    }
   });
 })
