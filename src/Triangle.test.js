@@ -18,28 +18,20 @@ describe('Triangle', () => {
       expect(circumCircle.r).toBe(1);
     });
 
-    it('handles degenerate vertical triangles', () => {
-      const b1 = new Point(1, 1);
-      const b2 = new Point(1, 2);
-      const b3 = new Point(1, 3);
+    it('handles degenerate triangles', () => {
+      let points = {
+        vertical: [new Point(1, 1), new Point(1, 2), new Point(1, 3)],
+        horizontal: [new Point(1, 1), new Point(2, 1), new Point(3, 1)]
+      }
 
-      const degenerate = new Triangle(b1, b2, b3);
-
-      expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
-      expect(isNaN(degenerate.circumCircle.cy)).toBeTruthy();
-      expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
-    });
-
-    it('handles degenerate horizontal triangles', () => {
-      const b1 = new Point(1, 1);
-      const b2 = new Point(2, 1);
-      const b3 = new Point(3, 1);
-
-      const degenerate = new Triangle(b1, b2, b3);
-
-      expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
-      expect(isNaN(degenerate.circumCircle.cy)).toBeTruthy();
-      expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
+      for(let orientation in points) {
+        const p = points[orientation];
+        const degenerate = new Triangle(p[0], p[1], p[2]);
+        console.log(degenerate.circumCircle);
+        expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
+        expect(isNaN(degenerate.circumCircle.cy)).toBeTruthy();
+        expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
+      }
     });
 
     it('is a Circle', () => {
