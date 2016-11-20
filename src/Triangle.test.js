@@ -26,9 +26,9 @@ describe('Triangle', () => {
       }
 
       const expecteds = {
-        vertical: new Circle(1.86602540, 1.5, 2),
-        horizontal: new Circle(1.5, 0.13397460, 1.5, 2),
-        both: new Circle(1.86602540, 1.5, 2)
+        vertical: new Circle(1.86602540, 1.5, 1),
+        horizontal: new Circle(1.5, 0.13397460, 1),
+        both: new Circle(1.86602540, 1.5, 1)
       }
 
       for(let orientation in points) {
