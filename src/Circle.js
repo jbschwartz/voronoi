@@ -6,6 +6,14 @@ export default class Circle {
     this.r = r;
   }
 
+  get svg() {
+    return {
+      cx: this.center.x,
+      cy: this.center.y,
+      r: this.r
+    }
+  }
+
   contains(point) {
     return distance(point, this.center) <= this.r;
   }
