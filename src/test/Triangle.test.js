@@ -4,8 +4,8 @@ import Circle from '../Circle';
 import {Triangle} from '../Triangle';
 
 function expectEqualCircles(a, b) {
-  expect(a.cx).toBeCloseTo(b.cx, 8);
-  expect(a.cy).toBeCloseTo(b.cy, 8);
+  expect(a.center.x).toBeCloseTo(b.center.x, 8);
+  expect(a.center.y).toBeCloseTo(b.center.y, 8);
   expect(a.r).toBeCloseTo(b.r, 8);
 }
 
@@ -19,8 +19,8 @@ describe('Triangle', () => {
     const circumCircle = triangle.circumCircle;
 
     it('is calculated correctly', () => {
-      expect(circumCircle.cx).toBe(0);
-      expect(circumCircle.cy).toBe(0);
+      expect(circumCircle.center.x).toBe(0);
+      expect(circumCircle.center.y).toBe(0);
       expect(circumCircle.r).toBe(1);
     });
 
@@ -62,9 +62,9 @@ describe('Triangle', () => {
         for(let orientation in points) {
           const p = points[orientation];
           const degenerate = new Triangle(p[0], p[1], p[2]);
-          expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
-          expect(isNaN(degenerate.circumCircle.cy)).toBeTruthy();
-          expect(isNaN(degenerate.circumCircle.cx)).toBeTruthy();
+          expect(isNaN(degenerate.circumCircle.center.x)).toBeTruthy();
+          expect(isNaN(degenerate.circumCircle.center.y)).toBeTruthy();
+          expect(isNaN(degenerate.circumCircle.center.x)).toBeTruthy();
         }
       });
     });
