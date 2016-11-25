@@ -13,6 +13,10 @@ class Triangle {
     this.circumCircle = circumscribedCircle([this.a, this.b, this.c]);
   }
 
+  get points() {
+    return [this.a, this.b, this.c]
+  }
+
   buildEdges() {
     this.edges = [
       new Edge(this.a, this.b),
