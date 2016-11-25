@@ -5,10 +5,8 @@ class Point {
   }
 
   toString() {
-    return `${this.x},${this.y}`
+    return `${this.x},${this.y}`;
   }
-}
-
 }
 
 function distance(p1, p2) {
