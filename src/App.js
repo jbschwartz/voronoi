@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import SVG from './SVG'
+import SVG from './components/SVG'
 import Delaunay from './Delaunay'
-import ControlPanel from './components/ControlPanel'
 import './index.css'
 
 let i = 0;
