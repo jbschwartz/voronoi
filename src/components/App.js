@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import SVG from './components/SVG'
-import Delaunay from './Delaunay'
-import './index.css'
+import SVG from './SVG'
+import Delaunay from '../Delaunay'
+import '../index.css'
 
 let i = 0;
 const COLORS = ["red", "green", "blue", "yellow"];
