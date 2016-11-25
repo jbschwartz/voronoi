@@ -39,6 +39,10 @@ export default class App extends Component {
     this.setState({delaunay})
   }
 
+  filterClick(e) {
+    return e.target.getAttribute("class") === "blocker"
+  }
+
   render() {
     const style = this.state.style;
 
@@ -47,7 +51,12 @@ export default class App extends Component {
     this.state.delaunay.points.forEach((point, index) => {
       if(!point.cellColor) { point.cellColor = COLORS[++i % 4] }
 
-      geometry.points.push(<circle key={"point_" + index} cx={point.x} cy={point.y} {... style.point } />);
+      geometry.points.push(
+        <g key={"point_" + index}>
+          <circle cx={point.x} cy={point.y} {... style.point } />
+          <circle cx={point.x} cy={point.y} r={8} className="blocker" fill="black" fillOpacity={0} />
+        </g>
+      );
       geometry.cells.push(<polygon key={"cell_" + index} points={point.voronoiNodes.join(' ')} {... style.cell } fill={point.cellColor} />);
     });
 
@@ -57,10 +66,10 @@ export default class App extends Component {
 
     return (
       <div>
-        <SVG onClick={this.addPoint.bind(this)}>
+        <SVG onClick={this.addPoint.bind(this)} filterClick={this.filterClick.bind(this)}>
           <g className="cells">{geometry.cells}</g>
-          <g className="points">{geometry.points}</g>
           <g className="triangles">{geometry.triangles}</g>
+          <g className="points">{geometry.points}</g>
         </SVG>
       </div>
     );
