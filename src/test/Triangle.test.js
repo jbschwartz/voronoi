@@ -1,7 +1,4 @@
-import {Point} from '../Point';
-import Edge from '../Edge';
-import Circle from '../Circle';
-import {Triangle} from '../Triangle';
+import {Circle, Edge, Triangle, Point} from '../geometry/Geometry';
 
 function expectEqualCircles(a, b) {
   expect(a.center.x).toBeCloseTo(b.center.x, 8);
