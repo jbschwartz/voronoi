@@ -2,49 +2,46 @@ import React, { Component } from 'react';
 import {mouseTrap} from 'react-mousetrap';
 import SVG from './SVG'
 import Delaunay from '../Delaunay'
-import DefaultStyle from '../DefaultStyle'
+import ActiveButton from './ActiveButton'
+import style from '../DefaultStyle'
 import getRandomColor from '../Colors'
 import '../index.css'
 
-class App extends Component {
+const Components = {
+  'POINTS': 'points',
+  'TRIANGLES': 'triangles',
+  'CIRCLES': 'circumCircles',
+  'VORONOI': 'cells',
+  'NODES': 'nodes'
+}
+
+export default class App extends Component {
   constructor(props) {
     super(props)
 
-    // Order dictates how the shortcut keys are assigned
-    this.geometry = {points: [], triangles: [], circumCircles: [], cells: [], nodes: []}
-
     this.state = {
       delaunay: new Delaunay(),
-      style: DefaultStyle
+      isActive: {
+        points: true,
+        triangles: true,
+        circumCircles: false,
+        cells: false,
+        nodes: false
+      }
     };
   }
 
-  componentWillMount() {
-    let shortcut = 1;
-    for(const component in this.geometry) {
-      this.props.bindShortcut((shortcut++).toString(), () => this.toggle.bind(this)(component));
-    }
-  }
-
   toggle(component) {
-    let style = this.state.style;
-    style[component].visibility = (style[component].visibility === 'visible') ? 'hidden' : 'visible';
-    this.setState({ style });
-  }
-
-  indicateControl(component) {
-    if(this.state.style[component].visibility !== 'visible') {
-      return "btn btn-default"
-    } else {
-      return "btn btn-success"
-    }
+    let isActive = this.state.isActive;
+    isActive[component] = !isActive[component];
+    this.setState({ isActive });
   }
 
   addPoint(point) {
     let delaunay = this.state.delaunay;
     delaunay.addPoint(point);
 
-    this.setState({delaunay})
+    this.setState({ delaunay })
   }
 
   filterClick(e) {
@@ -52,7 +49,6 @@ class App extends Component {
   }
 
   generateGeometry() {
-    const style = this.state.style;
     this.geometry = {cells: [], circumCircles: [], nodes: [], triangles: [], points: []}
 
     this.state.delaunay.points.forEach((point, index) => {
@@ -82,13 +78,26 @@ class App extends Component {
   }
 
   renderGeometry() {
-    let output = [];
-    for(const geometry in this.geometry) {
-      output.push(
-        <g key={"geometry_" + output.length} className={geometry}>{this.geometry[geometry]}</g>
+    return Object.keys(this.geometry).map((component, index) => {
+      if(this.state.isActive[component]) {
+        return <g key={"geometry_" + index} className={component}>{this.geometry[component]}</g>;
+      }
+    });
+  }
+
+  renderControls() {
+    return Object.keys(Components).map((component, index) => {
+      const componentName = Components[component];
+      return (
+        <ActiveButton
+          key={"Control" + index}
+          shortcut={index + 1}
+          onClick={this.toggle.bind(this, componentName)}
+          isActive={this.state.isActive[componentName]}>
+          {component.toLowerCase()}
+        </ActiveButton>
       )
-    }
-    return output;
+    });
   }
 
   render() {
@@ -100,15 +109,9 @@ class App extends Component {
           {this.renderGeometry()}
         </SVG>
         <div className="controls">
-          <button onClick={() => this.toggle.bind(this)("points")} className={this.indicateControl("points")}>Points</button>
-          <button onClick={() => this.toggle.bind(this)("triangles")} className={this.indicateControl("triangles")}>Triangles</button>
-          <button onClick={() => this.toggle.bind(this)("circumCircles")} className={this.indicateControl("circumCircles")}>Circles</button>
-          <button onClick={() => this.toggle.bind(this)("cells")} className={this.indicateControl("cells")}>Voronoi</button>
-          <button onClick={() => this.toggle.bind(this)("nodes")} className={this.indicateControl("nodes")}>Nodes</button>
+          {this.renderControls()}
         </div>
       </div>
     );
   }
 }
-
-export default mouseTrap(App);

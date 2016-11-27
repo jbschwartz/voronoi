@@ -34,4 +34,5 @@ svg {
   width: 18%;
   text-align: center;
   margin: 0 1%;
+  text-transform: capitalize;
 }
