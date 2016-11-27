@@ -26,6 +26,10 @@ export default class App extends Component {
           stroke: "blue",
           fill: "grey",
           fillOpacity: 0.2
+        },
+        node: {
+          fill: "blue",
+          r: 4
         }
       }
     };
@@ -45,7 +49,7 @@ export default class App extends Component {
   render() {
     const style = this.state.style;
 
-    let geometry = {points: [], cells: [], triangles: []}
+    let geometry = {points: [], cells: [], triangles: [], nodes: []}
 
     this.state.delaunay.points.forEach((point, index) => {
       if(!point.cellColor) { point.cellColor = COLORS[++i % 4] }
@@ -57,6 +61,10 @@ export default class App extends Component {
         </g>
       );
       geometry.cells.push(<polygon key={"cell_" + index} points={point.voronoiNodes.join(' ')} {... style.cell } fill={point.cellColor} />);
+
+      geometry.nodes.push(point.voronoiNodes.map((node, nodeIndex) => {
+        return <circle key={"node_" + index + nodeIndex} cx={node.x} cy={node.y} {... style.node} />
+      }));
     });
 
     this.state.delaunay.triangles.forEach((triangle, index) => {
@@ -68,9 +76,10 @@ export default class App extends Component {
 
     return (
       <div>
-        <SVG onClick={this.addPoint.bind(this)} filterClick={this.filterClick.bind(this)}>
+        <SVG onClick={this.addPoint.bind(this)} onKeyDown={() => console.log("t")}filterClick={this.filterClick.bind(this)}>
           <g className="cells">{geometry.cells}</g>
           <g className="triangles">{geometry.triangles}</g>
+          <g className="nodes">{geometry.nodes}</g>
           <g className="points">{geometry.points}</g>
         </SVG>
       </div>
