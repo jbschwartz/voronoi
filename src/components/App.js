@@ -10,7 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.geometry = {points: [], triangles: [],  circumCircles: [], cells: [], nodes: []}
+    // Order dictates how the shortcut keys are assigned
+    this.geometry = {points: [], triangles: [], circumCircles: [], cells: [], nodes: []}
 
     this.state = {
       delaunay: new Delaunay(),
@@ -44,7 +45,7 @@ class App extends Component {
 
   generateGeometry() {
     const style = this.state.style;
-    this.geometry = {triangles: [],  circumCircles: [], cells: [], nodes: [], points: []}
+    this.geometry = {cells: [], circumCircles: [], nodes: [], triangles: [], points: []}
 
     this.state.delaunay.points.forEach((point, index) => {
       if(!point.cellColor) { point.cellColor = getRandomColor(); }
