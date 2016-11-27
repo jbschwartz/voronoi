@@ -12,6 +12,8 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    this.geometry = {points: [], triangles: [],  circumCircles: [], cells: [], nodes: []}
+
     this.state = {
       delaunay: new Delaunay(),
       style: DefaultStyle
@@ -19,11 +21,10 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.props.bindShortcut('1', () => this.toggle.bind(this)("point"));
-    this.props.bindShortcut('2', () => this.toggle.bind(this)("triangle"));
-    this.props.bindShortcut('3', () => this.toggle.bind(this)("circumCircle"));
-    this.props.bindShortcut('4', () => this.toggle.bind(this)("cell"));
-    this.props.bindShortcut('5', () => this.toggle.bind(this)("node"));
+    let shortcut = 1;
+    for(const component in this.geometry) {
+      this.props.bindShortcut((shortcut++).toString(), () => this.toggle.bind(this)(component));
+    }
   }
 
   toggle(component) {
@@ -43,24 +44,23 @@ class App extends Component {
     return e.target.getAttribute("class") === "blocker"
   }
 
-  render() {
+  generateGeometry() {
     const style = this.state.style;
-
-    let geometry = {points: [], cells: [], triangles: [], nodes: [], circumCircles: []}
+    this.geometry = {triangles: [],  circumCircles: [], cells: [], nodes: [], points: []}
 
     this.state.delaunay.points.forEach((point, index) => {
       if(!point.cellColor) { point.cellColor = COLORS[++i % 4] }
 
-      geometry.points.push(
+      this.geometry.points.push(
         <g key={"point_" + index}>
-          <circle cx={point.x} cy={point.y} {... style.point } />
+          <circle cx={point.x} cy={point.y} {... style.points } />
           <circle cx={point.x} cy={point.y} r={8} className="blocker" fill="black" fillOpacity={0} />
         </g>
       );
-      geometry.cells.push(<polygon key={"cell_" + index} points={point.voronoiNodes.join(' ')} {... style.cell } fill={point.cellColor} />);
+      this.geometry.cells.push(<polygon key={"cell_" + index} points={point.voronoiNodes.join(' ')} {... style.cells } fill={point.cellColor} />);
 
-      geometry.nodes.push(point.voronoiNodes.map((node, nodeIndex) => {
-        return <circle key={"node_" + index + nodeIndex} cx={node.x} cy={node.y} {... style.node} />
+      this.geometry.nodes.push(point.voronoiNodes.map((node, nodeIndex) => {
+        return <circle key={"node_" + index + nodeIndex} cx={node.x} cy={node.y} {... style.nodes} />
       }));
     });
 
@@ -68,20 +68,29 @@ class App extends Component {
       // Do not render anything associated with the super triangle
       if(triangle.a.isSuper || triangle.b.isSuper || triangle.c.isSuper) return null;
 
-      geometry.triangles.push(<polygon key={"triangle_" + index} points={triangle.toString()} {... style.triangle }/>);
+      this.geometry.triangles.push(<polygon key={"triangle_" + index} points={triangle.toString()} {... style.triangles }/>);
 
-      const circumCircle = triangle.circumCircle;
-      geometry.circumCircles.push(<circle key={"circumCircle_" + index} {... circumCircle.svg } {... style.circumCircle }/>);
+      this.geometry.circumCircles.push(<circle key={"circumCircle_" + index} {... triangle.circumCircle.svg } {... style.circumCircles }/>);
     })
+  }
+
+  renderGeometry() {
+    let output = [];
+    for(const geometry in this.geometry) {
+      output.push(
+        <g key={"geometry_" + output.length} className={geometry}>{this.geometry[geometry]}</g>
+      )
+    }
+    return output;
+  }
+
+  render() {
+    this.generateGeometry();
 
     return (
       <div>
-        <SVG onClick={this.addPoint.bind(this)} onKeyDown={() => console.log("t")}filterClick={this.filterClick.bind(this)}>
-          <g className="cells">{geometry.cells}</g>
-          <g className="triangles">{geometry.triangles}</g>
-          <g className="circumCircles">{geometry.circumCircles}</g>
-          <g className="nodes">{geometry.nodes}</g>
-          <g className="points">{geometry.points}</g>
+        <SVG onClick={this.addPoint.bind(this)} filterClick={this.filterClick.bind(this)}>
+          {this.renderGeometry()}
         </SVG>
       </div>
     );

@@ -1,28 +1,28 @@
 export default {
-  point: {
-  r: 5,
-  fill: "magenta",
-  visibility: "visible"
+  points: {
+    r: 5,
+    fill: "magenta",
+    visibility: "visible"
   },
-  triangle: {
+  triangles: {
     fill: "none",
     stroke: "magenta",
     strokeWidth: 3,
     visibility: "visible"
   },
-  cell: {
+  cells: {
     stroke: "blue",
     strokeDasharray: "10 5",
     fill: "grey",
     fillOpacity: 0.2,
     visibility: "hidden"
   },
-  node: {
+  nodes: {
     fill: "blue",
     visibility: "hidden",
     r: 4
   },
-  circumCircle: {
+  circumCircles: {
     fill: "none",
     stroke: "grey",
     visibility: "hidden"
