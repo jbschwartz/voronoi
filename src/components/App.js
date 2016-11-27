@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {mouseTrap} from 'react-mousetrap';
 import SVG from './SVG'
 import Delaunay from '../Delaunay'
 import '../index.css'
@@ -6,7 +7,7 @@ import '../index.css'
 let i = 0;
 const COLORS = ["red", "green", "blue", "yellow"];
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
 
@@ -15,26 +16,43 @@ export default class App extends Component {
       style: {
         point: {
           r: 5,
-          fill: "magenta"
+          fill: "magenta",
+          visibility: "visible"
         },
         triangle: {
           fill: "none",
           stroke: "magenta",
-          strokeWidth: 3
+          strokeWidth: 3,
+          visibility: "visible"
         },
         cell: {
           stroke: "blue",
           fill: "grey",
-          fillOpacity: 0.2
+          fillOpacity: 0.2,
+          visibility: "hidden"
         },
         node: {
           fill: "blue",
+          visibility: "hidden",
           r: 4
         }
       }
     };
   }
 
+  componentWillMount() {
+    this.props.bindShortcut('1', () => this.toggle.bind(this)("point"));
+    this.props.bindShortcut('2', () => this.toggle.bind(this)("triangle"));
+    this.props.bindShortcut('3', () => this.toggle.bind(this)("cell"));
+    this.props.bindShortcut('4', () => this.toggle.bind(this)("node"));
+  }
+
+  toggle(component) {
+    let style = this.state.style;
+    style[component].visibility = (style[component].visibility === 'visible') ? 'hidden' : 'visible';
+    this.setState({ style });
+  }
+  
   addPoint(point) {
     let delaunay = this.state.delaunay;
     delaunay.addPoint(point);
@@ -76,6 +94,7 @@ export default class App extends Component {
 
     return (
       <div>
+        <a>Controls</a>
         <SVG onClick={this.addPoint.bind(this)} onKeyDown={() => console.log("t")}filterClick={this.filterClick.bind(this)}>
           <g className="cells">{geometry.cells}</g>
           <g className="triangles">{geometry.triangles}</g>
@@ -86,3 +105,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default mouseTrap(App);
