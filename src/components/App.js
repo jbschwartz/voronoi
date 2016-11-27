@@ -32,6 +32,14 @@ class App extends Component {
     this.setState({ style });
   }
 
+  indicateControl(component) {
+    if(this.state.style[component].visibility !== 'visible') {
+      return "btn btn-default"
+    } else {
+      return "btn btn-success"
+    }
+  }
+
   addPoint(point) {
     let delaunay = this.state.delaunay;
     delaunay.addPoint(point);
@@ -91,6 +99,13 @@ class App extends Component {
         <SVG onClick={this.addPoint.bind(this)} filterClick={this.filterClick.bind(this)}>
           {this.renderGeometry()}
         </SVG>
+        <div className="controls">
+          <button onClick={() => this.toggle.bind(this)("points")} className={this.indicateControl("points")}>Points</button>
+          <button onClick={() => this.toggle.bind(this)("triangles")} className={this.indicateControl("triangles")}>Triangles</button>
+          <button onClick={() => this.toggle.bind(this)("circumCircles")} className={this.indicateControl("circumCircles")}>Circles</button>
+          <button onClick={() => this.toggle.bind(this)("cells")} className={this.indicateControl("cells")}>Voronoi</button>
+          <button onClick={() => this.toggle.bind(this)("nodes")} className={this.indicateControl("nodes")}>Nodes</button>
+        </div>
       </div>
     );
   }
