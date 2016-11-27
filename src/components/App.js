@@ -60,6 +60,9 @@ export default class App extends Component {
     });
 
     this.state.delaunay.triangles.forEach((triangle, index) => {
+      // Do not render anything associated with the super triangle
+      if(triangle.a.isSuper || triangle.b.isSuper || triangle.c.isSuper) return null;
+
       geometry.triangles.push(<polygon key={"triangle_" + index} points={triangle.toString()} {... style.triangle }/>);
     })
 
