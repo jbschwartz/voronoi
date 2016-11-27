@@ -14,7 +14,7 @@ function rgbToHex(rgb) {
   return '#' + '0'.repeat(6 - hexString.length) + hexString;
 }
 
-function getRandomColor() {
+export default function getRandomColor() {
     const h = (Math.random() + SPACING) % 1;
     return rgbToHex(hsvToRGB(h, 0.3, 0.95));
 }
@@ -58,5 +58,3 @@ function hsvToRGB(h, s, v) {
 
   return rgb;
 }
-
-export { getRandomColor }

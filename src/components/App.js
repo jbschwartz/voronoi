@@ -3,7 +3,7 @@ import {mouseTrap} from 'react-mousetrap';
 import SVG from './SVG'
 import Delaunay from '../Delaunay'
 import DefaultStyle from '../DefaultStyle'
-import { getRandomColor } from '../colors'
+import getRandomColor from '../Colors'
 import '../index.css'
 
 class App extends Component {
