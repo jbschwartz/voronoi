@@ -27,6 +27,7 @@ class App extends Component {
         },
         cell: {
           stroke: "blue",
+          strokeDasharray: "10 5",
           fill: "grey",
           fillOpacity: 0.2,
           visibility: "hidden"
@@ -35,6 +36,11 @@ class App extends Component {
           fill: "blue",
           visibility: "hidden",
           r: 4
+        },
+        circumCircle: {
+          fill: "none",
+          stroke: "grey",
+          visibility: "hidden"
         }
       }
     };
@@ -43,8 +49,9 @@ class App extends Component {
   componentWillMount() {
     this.props.bindShortcut('1', () => this.toggle.bind(this)("point"));
     this.props.bindShortcut('2', () => this.toggle.bind(this)("triangle"));
-    this.props.bindShortcut('3', () => this.toggle.bind(this)("cell"));
-    this.props.bindShortcut('4', () => this.toggle.bind(this)("node"));
+    this.props.bindShortcut('3', () => this.toggle.bind(this)("circumCircle"));
+    this.props.bindShortcut('4', () => this.toggle.bind(this)("cell"));
+    this.props.bindShortcut('5', () => this.toggle.bind(this)("node"));
   }
 
   toggle(component) {
@@ -52,7 +59,7 @@ class App extends Component {
     style[component].visibility = (style[component].visibility === 'visible') ? 'hidden' : 'visible';
     this.setState({ style });
   }
-  
+
   addPoint(point) {
     let delaunay = this.state.delaunay;
     delaunay.addPoint(point);
@@ -67,7 +74,7 @@ class App extends Component {
   render() {
     const style = this.state.style;
 
-    let geometry = {points: [], cells: [], triangles: [], nodes: []}
+    let geometry = {points: [], cells: [], triangles: [], nodes: [], circumCircles: []}
 
     this.state.delaunay.points.forEach((point, index) => {
       if(!point.cellColor) { point.cellColor = COLORS[++i % 4] }
@@ -90,14 +97,17 @@ class App extends Component {
       if(triangle.a.isSuper || triangle.b.isSuper || triangle.c.isSuper) return null;
 
       geometry.triangles.push(<polygon key={"triangle_" + index} points={triangle.toString()} {... style.triangle }/>);
+
+      const circumCircle = triangle.circumCircle;
+      geometry.circumCircles.push(<circle key={"circumCircle_" + index} {... circumCircle.svg } {... style.circumCircle }/>);
     })
 
     return (
       <div>
-        <a>Controls</a>
         <SVG onClick={this.addPoint.bind(this)} onKeyDown={() => console.log("t")}filterClick={this.filterClick.bind(this)}>
           <g className="cells">{geometry.cells}</g>
           <g className="triangles">{geometry.triangles}</g>
+          <g className="circumCircles">{geometry.circumCircles}</g>
           <g className="nodes">{geometry.nodes}</g>
           <g className="points">{geometry.points}</g>
         </SVG>
