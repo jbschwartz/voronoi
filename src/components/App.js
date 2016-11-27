@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {mouseTrap} from 'react-mousetrap';
 import SVG from './SVG'
 import Delaunay from '../Delaunay'
+import DefaultStyle from '../DefaultStyle'
 import '../index.css'
 
 let i = 0;
@@ -13,36 +14,7 @@ class App extends Component {
 
     this.state = {
       delaunay: new Delaunay(),
-      style: {
-        point: {
-          r: 5,
-          fill: "magenta",
-          visibility: "visible"
-        },
-        triangle: {
-          fill: "none",
-          stroke: "magenta",
-          strokeWidth: 3,
-          visibility: "visible"
-        },
-        cell: {
-          stroke: "blue",
-          strokeDasharray: "10 5",
-          fill: "grey",
-          fillOpacity: 0.2,
-          visibility: "hidden"
-        },
-        node: {
-          fill: "blue",
-          visibility: "hidden",
-          r: 4
-        },
-        circumCircle: {
-          fill: "none",
-          stroke: "grey",
-          visibility: "hidden"
-        }
-      }
+      style: DefaultStyle
     };
   }
 
