@@ -1,4 +1,4 @@
-import {Point, distance} from './Point'
+import Point from './Point'
 
 export default class Circle {
   constructor(cx, cy, r) {
@@ -15,6 +15,6 @@ export default class Circle {
   }
 
   contains(point) {
-    return distance(point, this.center) <= this.r;
+    return this.center.distanceTo(point) <= this.r;
   }
 }

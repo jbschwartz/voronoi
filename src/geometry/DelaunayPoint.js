@@ -1,4 +1,4 @@
-import { Point } from './Point'
+import Point from './Point'
 
 export default class DelaunayPoint extends Point {
   constructor(x, y, isSuper = false) {

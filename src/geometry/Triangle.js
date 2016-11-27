@@ -1,8 +1,8 @@
 import Circle from './Circle'
 import Edge from './Edge'
-import {Point, distance} from './Point'
+import Point from './Point'
 
-class Triangle {
+export default class Triangle {
   constructor(a, b, c) {
     this.a = a;
     this.b = b;
@@ -51,7 +51,7 @@ class Line {
   intersect(line) {
     if(this.isParallel(line)) return null;
 
-    let result = { x: null, y: null }
+    let result = new Point(null, null);
 
     if(this.isHorizontal()) {
       result.y = this.point.y;
@@ -107,10 +107,8 @@ function circumscribedCircle(points) {
   const intersection = perpBisectorA.intersect(perpBisectorB);
 
   if(intersection) {
-    return new Circle(intersection.x, intersection.y, distance(intersection, points[0]))
+    return new Circle(intersection.x, intersection.y, intersection.distanceTo(points[0]))
   } else {
     return new Circle(NaN, NaN, NaN);
   }
 }
-
-export { Triangle }
