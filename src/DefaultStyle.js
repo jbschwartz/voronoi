@@ -14,7 +14,6 @@ export default {
     stroke: "blue",
     strokeDasharray: "10 5",
     fill: "grey",
-    fillOpacity: 0.2,
     visibility: "hidden"
   },
   nodes: {

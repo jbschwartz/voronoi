@@ -3,10 +3,8 @@ import {mouseTrap} from 'react-mousetrap';
 import SVG from './SVG'
 import Delaunay from '../Delaunay'
 import DefaultStyle from '../DefaultStyle'
+import { getRandomColor } from '../colors'
 import '../index.css'
-
-let i = 0;
-const COLORS = ["red", "green", "blue", "yellow"];
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +47,7 @@ class App extends Component {
     this.geometry = {triangles: [],  circumCircles: [], cells: [], nodes: [], points: []}
 
     this.state.delaunay.points.forEach((point, index) => {
-      if(!point.cellColor) { point.cellColor = COLORS[++i % 4] }
+      if(!point.cellColor) { point.cellColor = getRandomColor(); }
 
       this.geometry.points.push(
         <g key={"point_" + index}>
