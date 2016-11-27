@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {mouseTrap} from 'react-mousetrap';
 import SVG from './SVG'
+import Controls from './Controls'
 import Delaunay from '../Delaunay'
-import ActiveButton from './ActiveButton'
 import style from '../DefaultStyle'
 import getRandomColor from '../Colors'
 import '../index.css'
@@ -85,21 +85,6 @@ export default class App extends Component {
     });
   }
 
-  renderControls() {
-    return Object.keys(Components).map((component, index) => {
-      const componentName = Components[component];
-      return (
-        <ActiveButton
-          key={"Control" + index}
-          shortcut={index + 1}
-          onClick={this.toggle.bind(this, componentName)}
-          isActive={this.state.isActive[componentName]}>
-          {component.toLowerCase()}
-        </ActiveButton>
-      )
-    });
-  }
-
   render() {
     this.generateGeometry();
 
@@ -108,9 +93,9 @@ export default class App extends Component {
         <SVG onClick={this.addPoint.bind(this)} filterClick={this.filterClick.bind(this)}>
           {this.renderGeometry()}
         </SVG>
-        <div className="controls">
-          {this.renderControls()}
-        </div>
+        <Controls toggle={this.toggle.bind(this)} isActive={this.state.isActive}>
+          {Components}
+        </Controls>
       </div>
     );
   }
