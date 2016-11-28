@@ -49,6 +49,9 @@ export default class App extends Component {
         <Controls toggle={this.toggle.bind(this)}>
           {this.state.components}
         </Controls>
+        <div className="source">
+          Source code available on <a href="https://github.com/jbschwartz/voronoi">GitHub</a>
+        </div>
       </div>
     );
   }
