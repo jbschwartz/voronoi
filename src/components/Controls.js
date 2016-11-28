@@ -6,13 +6,12 @@ export default class Controls extends Component {
     const Components = this.props.children;
 
     return Object.keys(Components).map((component, index) => {
-      const componentName = Components[component];
       return (
         <ActiveButton
           key={"Control" + index}
           shortcut={index + 1}
-          onClick={() => this.props.toggle(componentName)}
-          isActive={this.props.isActive[componentName]}>
+          onClick={() => this.props.toggle(component)}
+          isActive={Components[component]}>
           {component.toLowerCase()}
         </ActiveButton>
       )
