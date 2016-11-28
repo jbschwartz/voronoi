@@ -1,6 +1,6 @@
 # Voronoi
 
-A ReactJS app for creating and viewing Delaunay Triangulations and Voronoi diagrams.
+A ReactJS app for creating and viewing Delaunay triangulations and Voronoi diagrams.
 
 See a [live demo here](http://james.schwartz.engineer/voronoi).
 
@@ -22,7 +22,7 @@ To deploy the application, use:
 npm run build
 ```
 
-See the [read me](https://github.com/facebookincubator/create-react-app) for more information.
+See the Create React App [read me](https://github.com/facebookincubator/create-react-app) for more information.
 
 ## Algorithm
 This application implements the algorithm as described by Paul Bourke [here] (http://paulbourke.net/papers/triangulate/).
